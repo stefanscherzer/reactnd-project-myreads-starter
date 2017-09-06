@@ -75,10 +75,11 @@ body, .app {
 }
 .search-books-input-wrapper {
   flex: 1;
-  background: #e9e;
+  background: white;
 }
 .search-books-bar input {
-  width: 100%;
+  width: 90%;
+  min-width: 250px;
   padding: 15px 10px;
   font-size: 1.25em;
   border: none;
@@ -93,6 +94,21 @@ body, .app {
   height: 53px;
   background: white;
   background-image: url('./icons/arrow-back.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 28px;
+  font-size: 0;
+}
+
+.clear-search {
+  display: block;
+  float: right;
+  top: 20px;
+  left: 15px;
+  width: 50px;
+  height: 53px;
+  background: white;
+  background-image: url('./icons/cancel.svg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: 28px;

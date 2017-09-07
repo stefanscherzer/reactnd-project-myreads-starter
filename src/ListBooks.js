@@ -12,7 +12,7 @@ class ListBooks extends Component {
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
-      console.log(books);
+      //console.log(books);
     })
   }
 
@@ -28,15 +28,15 @@ class ListBooks extends Component {
           <div>
             <BookShelf
               shelfname="Currently Reading"
-              books={books}
+              books={books.filter(book => book.shelf === "currentlyReading")}
             />
             <BookShelf
               shelfname="Want to Read"
-              books={books}
+              books={books.filter(book => book.shelf === "wantToRead")}
             />
             <BookShelf
               shelfname="Read"
-              books={books}
+              books={books.filter(book => book.shelf === "read")}
             />
           </div>
         </div>

@@ -14,7 +14,6 @@ class SearchBooks extends Component {
     if (query) {
       let maxResults = 10
       BooksAPI.search(query, maxResults).then((books) => {
-        console.log(books);
         this.setState({ books })
       })
       this.setState({ query: query.trim() })
@@ -28,6 +27,7 @@ class SearchBooks extends Component {
   }
 
   render() {
+
     const { query, books } = this.state
 
     return (
@@ -49,7 +49,6 @@ class SearchBooks extends Component {
               value={query}
               onChange={(event) => this.searchBooks(event.target.value)}
             />
-
             {query && (
               <div
                 className='clear-search'

@@ -12,13 +12,15 @@ class BookShelf extends Component {
           <h2 className="bookshelf-title">{shelfname}</h2>
         )}
         <div className="bookshelf-books">
-          <ol className="books-grid">
-            {books.map((book) => (
-              <Book key={book.id}
-                book={book}
-              />
-            ))}
-          </ol>
+          {books && (
+            <ol className="books-grid">
+              {books.map((book) => (
+                <Book key={book.id}
+                  book={book}
+                />
+              ))}
+            </ol>
+          )}
         </div>
       </div>
     )

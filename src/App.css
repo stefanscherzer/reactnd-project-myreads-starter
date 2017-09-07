@@ -75,10 +75,12 @@ body, .app {
 }
 .search-books-input-wrapper {
   flex: 1;
+  display: flex;
+  justify-content: space-between;
   background: white;
 }
 .search-books-bar input {
-  width: 90%;
+  flex: 1;
   min-width: 250px;
   padding: 15px 10px;
   font-size: 1.25em;
@@ -182,6 +184,15 @@ body, .app {
 .book-cover {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   background: #eee;
+}
+.book-no-cover {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  background: #eee;
+  background-image: url('./icons/book.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 128px;
+  height: 193px;
 }
 .book-cover-title {
   padding: 20px 10px 0;

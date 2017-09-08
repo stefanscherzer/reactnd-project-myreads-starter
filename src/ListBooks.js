@@ -9,11 +9,14 @@ class ListBooks extends Component {
     books: []
   }
 
-  componentDidMount() {
+  getMyBooks() {
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
-      //console.log(books);
     })
+  }
+
+  componentDidMount() {
+    this.getMyBooks()
   }
 
   render() {

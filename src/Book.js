@@ -14,7 +14,7 @@ class Book extends Component {
 
   updateBook(event, book) {
     BooksAPI.update(book, event.target.value)
-    this.setState({value: event.target.value});
+    this.setState({value: event.target.value})
   }
 
   render() {

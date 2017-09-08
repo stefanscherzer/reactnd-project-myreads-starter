@@ -7,15 +7,35 @@ class SearchBooks extends Component {
 
   state = {
     query: '',
-    books: ''
+    books: '',
+    searchresult: '',
+    mybooks: ''
   }
 
   searchBooks = (query) => {
     if (query) {
       let maxResults = 10
-      BooksAPI.search(query, maxResults).then((books) => {
-        this.setState({ books })
+      BooksAPI.search(query, maxResults).then((searchresult) => {
+        this.setState({ searchresult })
+
+        BooksAPI.getAll().then((mybooks) => {
+          this.setState({ mybooks })
+
+          var books = this.state.searchresult.map(result => {
+              var shelf
+              for (var i = 0; i < this.state.mybooks.length && shelf === undefined; i++) {
+                shelf = (result.id === this.state.mybooks[i].id ? this.state.mybooks[i].shelf : undefined)
+              }
+              if (shelf) {
+                 result.shelf = shelf
+              }
+              return result
+            }
+          )
+          this.setState({ books: books })
+        })
       })
+
       this.setState({ query: query.trim() })
     } else {
       this.clearQuery()

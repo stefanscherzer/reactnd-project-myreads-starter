@@ -7,9 +7,8 @@ class SearchBooks extends Component {
 
   state = {
     query: '',
-    books: '',
-    searchresult: '',
-    mybooks: ''
+    booksfound: '',
+    searchresult: ''
   }
 
   searchBooks = (query) => {
@@ -19,24 +18,21 @@ class SearchBooks extends Component {
         this.setState({ searchresult })
 
         if(this.state.searchresult.error) {
-          this.setState({ books: this.state.searchresult })
+          this.setState({ booksfound: this.state.searchresult })
         } else {
-          BooksAPI.getAll().then((mybooks) => {
-            this.setState({ mybooks })
-
-            var books = this.state.searchresult.map(result => {
-                var shelf
-                for (var i = 0; i < this.state.mybooks.length && shelf === undefined; i++) {
-                  shelf = (result.id === this.state.mybooks[i].id ? this.state.mybooks[i].shelf : undefined)
-                }
-                if (shelf) {
-                   result.shelf = shelf
-                }
-                return result
+          var mybooks = this.props.books
+          var booksfound = this.state.searchresult.map(result => {
+              var shelf
+              for (var i = 0; i < mybooks.length && shelf === undefined; i++) {
+                shelf = (result.id === mybooks[i].id ? mybooks[i].shelf : undefined)
               }
-            )
-            this.setState({ books: books })
-          })
+              if (shelf) {
+                 result.shelf = shelf
+              }
+              return result
+            }
+          )
+          this.setState({ booksfound: booksfound })
         }
       })
 
@@ -47,12 +43,12 @@ class SearchBooks extends Component {
   }
 
   clearQuery = () => {
-    this.setState({ query: '', books: '' })
+    this.setState({ query: '', booksfound: '' })
   }
 
   render() {
 
-    const { query, books } = this.state
+    const { query, booksfound } = this.state
 
     return (
       <div className="search-books">
@@ -81,10 +77,10 @@ class SearchBooks extends Component {
             )}
           </div>
         </div>
-        {books && books.length > 0 && (
+        {booksfound && booksfound.length > 0 && (
           <div className="search-books-results">
             <ol className="books-grid">
-              {books.map((book) => (
+              {booksfound.map((book) => (
                 <Book key={book.id}
                   book={book}
                 />
@@ -92,7 +88,7 @@ class SearchBooks extends Component {
             </ol>
           </div>
         )}
-        {books.error && (
+        {booksfound.error && (
           <div className="search-books-results">
             No search results!
           </div>

@@ -14,7 +14,6 @@ class Book extends Component {
 
   changeValue(event, book) {
     this.props.updateBook(book, event.target.value)
-    //this.props.getMyBooks()
     this.setState({value: event.target.value})
   }
 

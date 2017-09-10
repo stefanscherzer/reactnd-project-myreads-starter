@@ -18,6 +18,12 @@ class BooksApp extends React.Component {
     })
   }
 
+  updateBook(book, value) {
+    BooksAPI.update(book, value).then((books) => {
+      this.getMyBooks()
+    })
+  }
+
   componentDidMount() {
     this.getMyBooks()
   }
@@ -31,11 +37,15 @@ class BooksApp extends React.Component {
           <Route exact path='/search' render={() => (
             <SearchBooks
               books={books}
+              updateBook={this.updateBook}
+              getMyBooks={this.getMyBooks.bind(this)}
             />
           )}/>
           <Route exact path='/' render={() => (
             <ListBooks
               books={books}
+              updateBook={this.updateBook}
+              getMyBooks={this.getMyBooks.bind(this)}
             />
           )}/>
           <Route component={NoMatch} status={404}/>

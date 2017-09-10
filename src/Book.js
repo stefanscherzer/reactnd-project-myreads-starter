@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as BooksAPI from './BooksAPI'
+// import * as BooksAPI from './BooksAPI'
 
 class Book extends Component {
 
@@ -9,11 +9,12 @@ class Book extends Component {
       value: (this.props.book.shelf ? this.props.book.shelf : 'none')
     };
 
-    this.updateBook = this.updateBook.bind(this);
+    this.changeValue = this.changeValue.bind(this);
   }
 
-  updateBook(event, book) {
-    BooksAPI.update(book, event.target.value)
+  changeValue(event, book) {
+    this.props.updateBook(book, event.target.value)
+    //this.props.getMyBooks()
     this.setState({value: event.target.value})
   }
 
@@ -30,7 +31,7 @@ class Book extends Component {
               : <div className="book-no-cover"/>}
             <div className="book-shelf-changer">
               <select
-                onChange={(event) => this.updateBook(event, book)}
+                onChange={(event) => this.changeValue(event, book)}
                 value={value}>
                 <option value="info" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
@@ -41,7 +42,9 @@ class Book extends Component {
             </div>
           </div>
           <div className="book-title">{book.title}</div>
-          <div className="book-authors">{book.authors}</div>
+          <div className="book-authors">{book.authors ? book.authors.map(function(author) {
+            return (<span key={book.id + author}>{author}<br/></span>);
+        }) : ''}</div>
         </div>
       </li>
     )

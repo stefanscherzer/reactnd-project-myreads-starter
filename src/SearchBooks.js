@@ -49,6 +49,7 @@ class SearchBooks extends Component {
   render() {
 
     const { query, booksfound } = this.state
+    const { updateBook, getMyBooks } = this.props
 
     return (
       <div className="search-books">
@@ -83,6 +84,8 @@ class SearchBooks extends Component {
               {booksfound.map((book) => (
                 <Book key={book.id}
                   book={book}
+                  updateBook={updateBook}
+                  getMyBooks={getMyBooks}
                 />
               ))}
             </ol>

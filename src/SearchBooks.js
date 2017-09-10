@@ -18,25 +18,29 @@ class SearchBooks extends Component {
       BooksAPI.search(query, maxResults).then((searchresult) => {
         this.setState({ searchresult })
 
-        BooksAPI.getAll().then((mybooks) => {
-          this.setState({ mybooks })
+        if(this.state.searchresult.error) {
+          this.setState({ books: this.state.searchresult })
+        } else {
+          BooksAPI.getAll().then((mybooks) => {
+            this.setState({ mybooks })
 
-          var books = this.state.searchresult.map(result => {
-              var shelf
-              for (var i = 0; i < this.state.mybooks.length && shelf === undefined; i++) {
-                shelf = (result.id === this.state.mybooks[i].id ? this.state.mybooks[i].shelf : undefined)
+            var books = this.state.searchresult.map(result => {
+                var shelf
+                for (var i = 0; i < this.state.mybooks.length && shelf === undefined; i++) {
+                  shelf = (result.id === this.state.mybooks[i].id ? this.state.mybooks[i].shelf : undefined)
+                }
+                if (shelf) {
+                   result.shelf = shelf
+                }
+                return result
               }
-              if (shelf) {
-                 result.shelf = shelf
-              }
-              return result
-            }
-          )
-          this.setState({ books: books })
-        })
+            )
+            this.setState({ books: books })
+          })
+        }
       })
 
-      this.setState({ query: query.trim() })
+      this.setState({ query: query })
     } else {
       this.clearQuery()
     }

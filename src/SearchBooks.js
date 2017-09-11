@@ -7,8 +7,7 @@ class SearchBooks extends Component {
 
   state = {
     query: '',
-    booksfound: '',
-    searchresult: ''
+    booksfound: ''
   }
 
   searchBooks = (query) => {
@@ -17,11 +16,11 @@ class SearchBooks extends Component {
       BooksAPI.search(query, maxResults).then((searchresult) => {
         this.setState({ searchresult })
 
-        if(this.state.searchresult.error) {
-          this.setState({ booksfound: this.state.searchresult })
+        if(searchresult.error) {
+          this.setState({ booksfound: searchresult })
         } else {
           var mybooks = this.props.books
-          var booksfound = this.state.searchresult.map(result => {
+          var booksfound = searchresult.map(result => {
               var shelf
               for (var i = 0; i < mybooks.length && shelf === undefined; i++) {
                 shelf = (result.id === mybooks[i].id ? mybooks[i].shelf : undefined)

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { Debounce } from 'react-throttle';
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
 
@@ -63,12 +64,14 @@ class SearchBooks extends Component {
               However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
               you don't find a specific author or title. Every search is limited by search terms.
             */}
-            <input
-              type='text'
-              placeholder='Search by title or author'
-              value={query}
-              onChange={(event) => this.searchBooks(event.target.value)}
-            />
+            <Debounce time="400" handler="onChange">
+                <input
+                  type='text'
+                  value={this.query}
+                  onChange={(event) => this.searchBooks(event.target.value)}
+                  placeholder='Search by title or author'
+                />
+            </Debounce>
             {query && (
               <div
                 className='clear-search'
